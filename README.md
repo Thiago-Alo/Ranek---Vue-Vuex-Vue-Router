@@ -1,1 +1,1 @@
-# Ranek---Vue-Vuex-Vue-Router
+# Ranek---Vue@2 - Vuex - Vue-Router
