@@ -1,24 +1,32 @@
 <template>
   <section class="produtos-container">
-    <!-- Verifica se produtos existe -->
-    <div v-if="produtos && produtos.length" class="produtos">
-        <!-- V-FOR="produto in produtos" faz o loop em PRODUTOS dentro do nosso ranek.json e traz cada produto 
-        o :KEY="produto.id" é o identificador unico de cada produto, para que o VUE não tenha dúvidas-->
-        <div class="produto" v-for="(produto, index) in produtos" :key="index">
-            <router-link to="/">
-                <!-- O V-IF="PRODUTOS.FOTOS" fiz, se existir .FOTOS em PRODUTOS mostre esta TAG IMG -->
-                <img v-if="produtos.fotos" :src="produtos.fotos[0].src" alt="produtos.foto[0].titulo">
-                <p class="preco">{{produto.preco}}</p>
-                <h2 class="titulo">{{produto.nome}}</h2>
-                <p>{{produto.descricao}}</p>
-            </router-link>
+    <!-- O MODE="OUT-IN" faz a animação na saida de um e na entrada do outro, assim, evitando pulos doidos -->
+    <transition mode="out-in">
+        <!-- Verifica se produtos existe, esta key="produtos" esta para identificar o elemento para o transition -->
+        <div v-if="produtos && produtos.length" class="produtos" key="produtos">
+            <!-- V-FOR="produto in produtos" faz o loop em PRODUTOS dentro do nosso ranek.json e traz cada produto 
+            o :KEY="produto.id" é o identificador unico de cada produto, para que o VUE não tenha dúvidas-->
+            <div class="produto" v-for="(produto, index) in produtos" :key="index">
+                <router-link to="/">
+                    <!-- O V-IF="PRODUTOS.FOTOS" fiz, se existir .FOTOS em PRODUTOS mostre esta TAG IMG -->
+                    <img v-if="produtos.fotos" :src="produtos.fotos[0].src" alt="produtos.foto[0].titulo">
+                    <p class="preco">{{produto.preco}}</p>
+                    <h2 class="titulo">{{produto.nome}}</h2>
+                    <p>{{produto.descricao}}</p>
+                </router-link>
+            </div>
+            <ProdutosPaginar :produtosTotal="produtosTotal" :produtosPorPagina="produtosPorPagina"></ProdutosPaginar>
         </div>
-        <ProdutosPaginar :produtosTotal="produtosTotal" :produtosPorPagina="produtosPorPagina"></ProdutosPaginar>
-    </div>
-    <!-- Se a busca não existir o produto passado no input em ProdutosBuscar.vue, retorna esta div -->
-    <div v-else-if="produtos && produtos.length === 0" class="sem-resultados">
-        <p>Busca sem resultado.</p>
-    </div>
+        <!-- Se a busca não existir o produto passado no input em ProdutosBuscar.vue, retorna esta div -->
+        <!-- esta key="sem-resultado" esta para identificar o elemento para o transition -->
+        <div v-else-if="produtos && produtos.length === 0" class="sem-resultados" key="sem-resultado">
+            <p>Busca sem resultado.</p>
+        </div>
+        <!-- esta key="carregando" esta para identificar o elemento para o transition -->
+        <div v-else key="carregando">
+            <PaginaCarregando></PaginaCarregando>
+        </div>
+    </transition>
   </section>
 </template>
 
@@ -27,6 +35,7 @@
 import { api } from "@/services.js";
 import { serialize } from "@/helpes(buscas).js";
 import ProdutosPaginar from './ProdutosPaginar.vue';
+import PaginaCarregando from "./PaginaCarregando.vue";
 
 export default {
     //O NAME é a identificação do componente para ser utilizado em outros componentes
@@ -34,12 +43,13 @@ export default {
     //Em COMPONENTS informa o componente que será utilizado
     components:{
     ProdutosPaginar,
+    PaginaCarregando
 },
     // No DATA() se declara as variaveis no VUE
     data(){
         return {
             produtos: null,
-            produtosPorPagina: 6,
+            produtosPorPagina: 9,
             produtosTotal: 0,
         }
     },
@@ -58,17 +68,20 @@ export default {
     // Nos METHODS se declara as funções e os métodos
     methods: {
         getProdutos(){
-        //O getProdutos() está fazendo o axios/fetch da nossa api ranek.json
-        //O caminho da nossa pagina esta na variavel API que esta em src/services.js
-            api.get(this.url).then(response => {
+            this.produtos = null;
+            //O setTIMEOUT e so para simular a demora do carregando de uma API
+            setTimeout(() => {
+                //O getProdutos() está fazendo o axios/fetch da nossa api ranek.json
+                //O caminho da nossa pagina esta na variavel API que esta em src/services.js
+                api.get(this.url).then(response => {
                 //this.produtosTotal esta retornando o total de produtos que existe no ranek.json
                 //o Number() transforma o retorno em numero
                 this.produtosTotal = Number(response.headers["x-total-count"]);
-                console.log(this.produtosTotal)
                 //a diferença do uso do AXIOS e do FETCH e a RESPONSE terminar em .data
                 this.produtos = response.data;
-                console.log(response.data)
-            })
+                })
+            }, 1500)
+        
 
         //fetch('http://localhost:3000/produto').then(r => r.json())
         //.then(r => {

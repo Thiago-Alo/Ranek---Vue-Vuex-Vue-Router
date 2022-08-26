@@ -12,10 +12,16 @@ const routes = [
   },
 ]
 
+
+
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  //Sempre que mudar de ROUTER, volta para o topo
+  scrollBehavior () {
+    return window.scrollTo({top: 0, behavior: "smooth"})
+  }
 })
 
 export default router
