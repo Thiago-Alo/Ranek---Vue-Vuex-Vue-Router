@@ -13,6 +13,8 @@
 </template>
 
 <script>
+//Importe de biblioteca externa AXIOS para substituir o FETCH
+import { api } from "@/services.js";
 export default {
     // No DATA() se declara as variaveis no VUE
     data(){
@@ -23,14 +25,21 @@ export default {
     // Nos METHODS se declara as funções e os métodos
     methods: {
         getProdutos(){
-            // O getProdutos() está fazendo o fetch da nossa api ranek.json com o endereço local
-            fetch('http://localhost:3000/produto').then(r => r.json())
-            .then(r => {
-                this.produtos = r;
+        //O getProdutos() está fazendo o axios/fetch da nossa api ranek.json
+        //O caminho da nossa pagina esta na variavel API que esta em src/services.js
+            api.get("/produto").then(response => {
+                //a diferença do uso do AXIOS e do FETCH e a RESPONSE terminar em .data
+                this.produtos = response.data;
             })
+
+
+        //fetch('http://localhost:3000/produto').then(r => r.json())
+        //.then(r => {
+        //this.produtos = r;
+        //})
         }
     },
-    // No CREATED() informamos tudo que deve ser carregado antes do APP set MOUNTED
+    // No CREATED() informamos tudo que deve ser carregado antes do APP ser MOUNTED
     created(){
         this.getProdutos();
     }
