@@ -7,7 +7,10 @@
             <!-- V-FOR="produto in produtos" faz o loop em PRODUTOS dentro do nosso ranek.json e traz cada produto 
             o :KEY="produto.id" é o identificador unico de cada produto, para que o VUE não tenha dúvidas-->
             <div class="produto" v-for="(produto, index) in produtos" :key="index">
-                <router-link to="/">
+            <!-- O :to="{name: 'produto', params: {id: produto.id}} informa o
+            NAME: e o params :ID que foram passados la no ROUTER.JS para serem linkados ao componente FILHO
+            ProdutoSingle.vue -->
+                <router-link :to="{name: 'produto', params: {id: produto.id}}">
                     <!-- O V-IF="PRODUTOS.FOTOS" fiz, se existir .FOTOS em PRODUTOS mostre esta TAG IMG -->
                     <img v-if="produtos.fotos" :src="produtos.fotos[0].src" alt="produtos.foto[0].titulo">
                     <p class="preco">{{produto.preco}}</p>
