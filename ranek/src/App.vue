@@ -66,7 +66,7 @@ img{
   background: #65d;
   transform: scale(1.1);
 }
-
+/*Macete para o footer ficar sempre no final da tela*/
 #app{
   display: flex;
   flex-direction: column;
@@ -75,6 +75,7 @@ img{
 #main{
   flex:1;
 }
+/* Resto do macete em TheFooter.vue */
 input,
 textarea {
   border-radius: 4px;

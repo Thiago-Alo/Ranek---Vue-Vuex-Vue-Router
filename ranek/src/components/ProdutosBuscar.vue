@@ -11,6 +11,8 @@
 
 <script>
 export default {
+    //O NAME é a identificação do componente para ser utilizado em outros componentes
+    name: "ProdutosBuscar",
     data(){
         return{
             busca: ""
@@ -38,16 +40,11 @@ form {
   width: 100%;
   padding: 20px;
   border: none;
-  box-shadow: 0 4px 8px rgba(30, 60, 90, 0.1);
-  border-radius: 4px;
-  transition: all .5s;
 }
 
 #busca:focus,
 #busca:hover {
-    outline:none;
     transform: scale(1.1);
-    box-shadow: 0 6px 12px rgba(30, 60, 90, 0.2);
 }
 
 #lupa {

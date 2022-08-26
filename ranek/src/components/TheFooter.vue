@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <p>Ranke &copy; Criado por Thiago Alô 25/08/2022</p>
+    <p>Ranek &copy; Criado por Thiago Alô 25/08/2022</p>
   </footer>
 </template>
 
@@ -18,8 +18,9 @@ footer{
     padding:25px 0;
     text-align: center;
     font-size: 1.2rem;
-    position: relative;
     color: #fff;
+/* O resto do MACETE é por o top:75px + ou -, assim o FOOTER fica sempre 75px abaixo do MAIN e criar o scroll*/
+    position: relative;
     top: 75px;
 }
 </style>

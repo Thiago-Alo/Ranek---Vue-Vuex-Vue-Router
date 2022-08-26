@@ -4,7 +4,7 @@
     <div v-if="produtos && produtos.length" class="produtos">
         <!-- V-FOR="produto in produtos" faz o loop em PRODUTOS dentro do nosso ranek.json e traz cada produto 
         o :KEY="produto.id" é o identificador unico de cada produto, para que o VUE não tenha dúvidas-->
-        <div class="produto" v-for="produto in produtos" :key="produto.id">
+        <div class="produto" v-for="(produto, index) in produtos" :key="index">
             <router-link to="/">
                 <!-- O V-IF="PRODUTOS.FOTOS" fiz, se existir .FOTOS em PRODUTOS mostre esta TAG IMG -->
                 <img v-if="produtos.fotos" :src="produtos.fotos[0].src" alt="produtos.foto[0].titulo">
@@ -13,6 +13,7 @@
                 <p>{{produto.descricao}}</p>
             </router-link>
         </div>
+        <ProdutosPaginar :produtosTotal="produtosTotal" :produtosPorPagina="produtosPorPagina"></ProdutosPaginar>
     </div>
     <!-- Se a busca não existir o produto passado no input em ProdutosBuscar.vue, retorna esta div -->
     <div v-else-if="produtos && produtos.length === 0" class="sem-resultados">
@@ -25,12 +26,21 @@
 //Importe de biblioteca externa AXIOS para substituir o FETCH
 import { api } from "@/services.js";
 import { serialize } from "@/helpes(buscas).js";
+import ProdutosPaginar from './ProdutosPaginar.vue';
+
 export default {
+    //O NAME é a identificação do componente para ser utilizado em outros componentes
+    name: "ProdutosLista",
+    //Em COMPONENTS informa o componente que será utilizado
+    components:{
+    ProdutosPaginar,
+},
     // No DATA() se declara as variaveis no VUE
     data(){
         return {
             produtos: null,
-            produtosPorPagina: 9,
+            produtosPorPagina: 6,
+            produtosTotal: 0,
         }
     },
     //No computed é onde passamos o que será alterado
@@ -51,8 +61,13 @@ export default {
         //O getProdutos() está fazendo o axios/fetch da nossa api ranek.json
         //O caminho da nossa pagina esta na variavel API que esta em src/services.js
             api.get(this.url).then(response => {
+                //this.produtosTotal esta retornando o total de produtos que existe no ranek.json
+                //o Number() transforma o retorno em numero
+                this.produtosTotal = Number(response.headers["x-total-count"]);
+                console.log(this.produtosTotal)
                 //a diferença do uso do AXIOS e do FETCH e a RESPONSE terminar em .data
                 this.produtos = response.data;
+                console.log(response.data)
             })
 
         //fetch('http://localhost:3000/produto').then(r => r.json())
