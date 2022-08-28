@@ -4,8 +4,11 @@
     <TheHeader/>
 
     <main id="main">
-    <!-- No ROUTER-VIEW é onde serão renderizados os componentes vue, passados através dos ROUTER-LINK -->
-      <router-view/>
+      <!-- Animação ao trocar de pagina -->
+      <transition>
+      <!-- No ROUTER-VIEW é onde serão renderizados os componentes vue, passados através dos ROUTER-LINK -->
+        <router-view/>
+      </transition>
     </main>
     
     <TheFooter/>

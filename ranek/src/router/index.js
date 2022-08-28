@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ProdutoSingle from '@/views/ProdutoSingle'
+import LoginView from '@/views/LoginView'
+import UsuarioView from '@/views/usuario/UsuarioView'
 
 Vue.use(VueRouter)
 
@@ -18,7 +20,18 @@ const routes = [
     component: ProdutoSingle,
     //O PROPS informa o que :id vai ser usado como uma propriedade pelo filho
     props: true,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: LoginView
+  },
+  {
+    path: '/usuario',
+    name: 'usuario',
+    component: UsuarioView
   }
+    
 ]
 
 

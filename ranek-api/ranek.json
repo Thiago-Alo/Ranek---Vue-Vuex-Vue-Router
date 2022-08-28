@@ -10,6 +10,17 @@
             "numero": "25",
             "estado": "Porto",
             "cidade": "Vila nova de gaia"
+        },
+        {
+          "id": "tiara_kadri@hotmail.com",
+            "nome": "tiara Alô",
+            "email": "tiara_kadri@hotmail.com",
+            "senha": "123",
+            "rua": "Rua de gaia",
+            "cep:": "123456789",
+            "numero": "25",
+            "estado": "Porto",
+            "cidade": "Vila nova de gaia"
         }
     ],
     "produto": [

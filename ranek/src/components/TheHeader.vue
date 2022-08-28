@@ -5,7 +5,10 @@
         <router-link to="/" class="logo">
             <img src="@/assets/ranek.svg" alt="Ranek">
         </router-link>
-        <router-link class="btn" to="/login">Vender / Login</router-link>
+        <router-link v-if="$store.state.login" to="/usuario" class="btn">
+            {{nome}}
+        </router-link>
+        <router-link v-else class="btn" to="/login">Vender / Login</router-link>
     </nav>
   </header>
 </template>
@@ -14,6 +17,13 @@
 export default {
     // Nome do componente, para ser utilizado em outros componentes
     name: "TheHeader",
+    computed:{
+        //Função para retornar o nome do usuario com um REGEX
+        nome(){
+            //O REGEX .replace(/ .*/, "") diz tudo após o 1 espaço, substitua por " "
+            return this.$store.state.usuario.nome.replace(/ .*/, "");
+        }
+    }
 }
 </script>
 
