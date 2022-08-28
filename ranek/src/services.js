@@ -20,6 +20,10 @@ export const api = {
     //através da função criarUsuario() em store/index.js
     return axiosInstance.post(endpoint, body);
   },
+  //Faz UPDATE
+  put(endpoint, body){
+    return axiosInstance.put(endpoint, body);
+  },
   //deleta informação
   delete(endpoint){
     return axiosInstance.delete(endpoint)

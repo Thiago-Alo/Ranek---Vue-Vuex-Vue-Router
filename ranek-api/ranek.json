@@ -1,15 +1,41 @@
 {
+  "transacao": [
+    {
+      "comprador_id": "thiago_kadri@hotmail.com",
+      "vendedor_id": "andre@origamid.com",
+      "produto": {
+        "id": "notebook",
+        "nome": "Notebook",
+        "usuario_id": "andre@origamid.com",
+        "preco": "4999",
+        "vendido": "false",
+        "descricao": "Esse é um novo notebook.",
+        "fotos": null
+      },
+      "endereco": {
+        "cep": "20780280",
+        "rua": "Rua de gaia",
+        "numero": "25",
+        "bairro": "Cachambi",
+        "cidade": "Rio de Janeiro",
+        "estado": "RJ"
+      },
+      "id": 1
+    }
+  ],
   "usuario": [
     {
       "id": "thiago_kadri@hotmail.com",
       "nome": "Thiago Alô",
       "email": "thiago_kadri@hotmail.com",
       "senha": "123",
+      "cep": "20780280",
       "rua": "Rua de gaia",
-      "cep:": "123456789",
       "numero": "25",
-      "estado": "Porto",
-      "cidade": "Vila nova de gaia"
+      "bairro": "Cachambi",
+      "cidade": "Rio de Janeiro",
+      "estado": "RJ",
+      "cep:": "123456789"
     },
     {
       "id": "tiara_kadri@hotmail.com",
@@ -1017,14 +1043,6 @@
       "fotos": null,
       "usuario_id": "tiara_kadri@hotmail.com",
       "id": "Q087zyJ"
-    },
-    {
-      "nome": "dasda",
-      "preco": "423424",
-      "descricao": "dasdada",
-      "fotos": null,
-      "usuario_id": "thiago_kadri@hotmail.com",
-      "id": "OWxEwVP"
     },
     {
       "nome": "dasdad",

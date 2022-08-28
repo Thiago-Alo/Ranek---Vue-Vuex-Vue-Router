@@ -14,10 +14,13 @@
           está no main.js -->
         <p class="preco">{{produto.preco | numeroPreco}}</p>
         <p class="descricao">{{produto.descricao}}</p>
-        <!-- Se o ainda tiver produto exibe este botao -->
-        <button class="btn" v-if="produto.vendido === 'false'">Comprar</button>
-        <!-- Se não tiver produto, exibe este botao -->
-        <button v-else class="btn" disabled>Produto VendiDo</button>
+        <transition mode="out-in" v-if="produto.vendido === 'false'">        
+          <!-- Se o ainda tiver produto exibe este botao -->
+          <button class="btn" v-if="!finalizar" @click="finalizar = true">Comprar</button>
+          <FinalizarCompra v-else :produto="produto"></FinalizarCompra>
+        </transition>
+          <!-- Se não tiver produto, exibe este botao -->
+          <button v-else class="btn" disabled>Produto Vendido</button>
       </div>
     </div>
     <!-- Loading enquando nao tiver o produto -->
@@ -28,6 +31,8 @@
 <script>
 import { api } from '@/services';
 import PaginaCarregando from '@/components/PaginaCarregando.vue';
+import FinalizarCompra from '@/components/FinalizarCompra.vue';
+
 
 export default {
     name: "ProdutoSingle",
@@ -35,7 +40,8 @@ export default {
     props: ["id"],
     data() {
         return {
-            produto: null
+            produto: null,
+            finalizar: false,
         };
     },
     methods: {
@@ -50,7 +56,7 @@ export default {
     created() {
         this.getProduto();
     },
-    components: { PaginaCarregando }
+    components: { PaginaCarregando, FinalizarCompra }
 };
 </script>
 

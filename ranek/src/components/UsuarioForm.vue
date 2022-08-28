@@ -1,12 +1,14 @@
 <template>
   <form>
+    <div class="usuario" v-if="mostrarDadosLogin">
   <!-- O V-MODEL peda tudo que esta sendo digitado no input e passa para a variavel ex:v-model="nome" -->
-    <label for="nome">Nome</label>
-    <input id="nome" name="nome" type="text" v-model="nome">
-    <label for="email">Email</label>
-    <input id="email" name="email" type="email" v-model="email">
-    <label for="senha">Senha</label>
-    <input id="senha" name="senha" type="password" v-model="senha">
+      <label for="nome">Nome</label>
+      <input id="nome" name="nome" type="text" v-model="nome">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" v-model="email">
+      <label for="senha">Senha</label>
+      <input id="senha" name="senha" type="password" v-model="senha">
+    </div>
     <label for="cep">Cep</label>
     <input id="cep" name="cep" type="text" v-model="cep" @keyup="preencherCep">
     <label for="rua">Rua</label>
@@ -49,16 +51,11 @@ export default {
       //A MUTATION é a mutação que estamos fazendo em store/index.js
       mutation: "UPDATE_USUARIO"
     }),
-    // nome:{
-    //   //Vai pegar a variavel .nome e liga-la ao v-model="nome"
-    //   get(){
-    //     return this.$store.state.usuario.nome;
-    //   },
-    //   //Devolve o valor preenchido em v-model="nome", e envia para ser feito UPDATE do nome
-    //   set(value){
-    //     this.$store.commit("UPDATE_USUARIO", {nome: value})
-    //   }
-    // }
+    mostrarDadosLogin(){
+      //Se o Usuario nao estiver logado OU se tiver na pagina USUARIO EDITAR,
+      // para que o usuario posso editar nome, email e senha
+      return (!this.$store.state.login || this.$route.name === 'usuario-editar')
+    },
   }, 
   methods:{
     //Méthods para preencher automaticamente os campos do form através do CEP
@@ -80,12 +77,15 @@ export default {
 </script>
 
 <style scoped>
-form {
+form,
+.usuario {
   display: grid;
   grid-template-columns: 80px 1fr;
   align-items: center;
 }
-
+.usuario{
+  grid-column:1 / 3;
+}
 .button {
   grid-column: 2;
   margin-top: 10px;

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import UsuarioFrom from './UsuarioFrom.vue';
+import UsuarioFrom from './UsuarioForm.vue';
 
 
 export default {
