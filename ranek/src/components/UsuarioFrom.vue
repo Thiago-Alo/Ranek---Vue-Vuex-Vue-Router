@@ -8,7 +8,7 @@
     <label for="senha">Senha</label>
     <input id="senha" name="senha" type="password" v-model="senha">
     <label for="cep">Cep</label>
-    <input id="cep" name="cep" type="text" v-model="cep">
+    <input id="cep" name="cep" type="text" v-model="cep" @keyup="preencherCep">
     <label for="rua">Rua</label>
     <input id="rua" name="rua" type="text" v-model="rua">
     <label for="numero">Numero</label>
@@ -29,8 +29,15 @@
 <script>
 // Import da função mapFields
 import { mapFields } from "@/helpes(buscas)";
+import { getCep } from "@/services";
 export default {
   name: "UsuarioForm",
+  data(){
+    return{
+      rua: "",
+
+    }
+  },
   //COMPUTED é onde se faz alterações que retornam algo
   computed:{
     //Executando o mapFields({})
@@ -52,6 +59,22 @@ export default {
     //     this.$store.commit("UPDATE_USUARIO", {nome: value})
     //   }
     // }
+  }, 
+  methods:{
+    //Méthods para preencher automaticamente os campos do form através do CEP
+    preencherCep(){
+      //Este REGEX e para IGNORAR campos vazios e tudo que nao seja numero
+      const cep = this.cep.replace(/\D/g, "");
+      //Depois de limpar que faz a requisição a API através da função getCEP() em services.js
+      if(cep.length === 8){
+        getCep(cep).then(response => {
+          this.rua = response.data.logradouro;
+          this.bairro = response.data.bairro;
+          this.estado= response.data.uf;
+          this.cidade = response.data.localidade;
+        })
+      }
+    }
   }
 };
 </script>

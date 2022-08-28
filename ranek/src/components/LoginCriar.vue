@@ -8,7 +8,7 @@
       <button v-if="!criar" class="btn" @click="criar = true">Criar Conta</button>
     <!-- V-ELSE se o v-if="!criar" for TRUE, exibe o formulario  -->
       <UsuarioFrom v-else>
-        <button class="btn btn-form">Criar Usuário</button>
+        <button class="btn btn-form" @click.prevent="criarUsuario">Criar Usuário</button>
       </UsuarioFrom>
     </transition>
   </section>
@@ -25,7 +25,28 @@ export default {
             criar: false
         };
     },
-    components: { UsuarioFrom }
+    components: { UsuarioFrom },
+    methods:{
+      //o ASYNC informa que e uma função assincrona
+      async criarUsuario(){
+        //try = a TENTE isto, se não consegui, faça o CATCH
+        try{
+          //Os AWAIT são executado em ordem, 1 so começa apos o outro ser executado
+          //Este "criarUsuario" é o nome da ACTION que regristrei em store/index.js
+          await this.$store.dispatch("criarUsuario", this.$store.state.usuario);
+          //Ao Criar o Usuario, ja faz login automaticamente
+          await this.$store.dispatch(
+            "getUsuario",
+            this.$store.state.usuario.email
+          );
+          //Envia para a tela do usuario ao fazer login
+          this.$router.push({ name: "usuario" });
+          //tratamento de erros
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
 };
 </script>
 

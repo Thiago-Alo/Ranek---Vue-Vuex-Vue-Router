@@ -43,13 +43,37 @@ export default new Vuex.Store({
     //Método para fazer login através do usuario
     getUsuario(context, payload){
       //endereço do usuario
-      api.get(`/usuario/${payload}`).then(r => {
+      return api.get(`/usuario/${payload}`).then(response => {
         //Quando for feito o LOGIN, faz update do usuario para saber qual usuario esta acessando
-        context.commit("UPDATE_USUARIO", r.data);
+        context.commit("UPDATE_USUARIO", response.data);
         //Q faz update do LOGIN para TRUE
         context.commit("UPDATE_LOGIN", true);
       })
-    }
+    },
+    criarUsuario(context, payload){
+      //Faz upadete do ID
+      context.commit("UPDATE_USUARIO", { id: payload.email });
+      //o PAYLOAD vai ser o objeto com todas as informações do usuario
+      return api.post("/usuario", payload);
+    },
+    //Ao executar DeslogarUsuario limpa os campos do usuario
+    deslogarUsuario(context) {
+      //Faz uma mutação para UPDATE_USUARIO limpando os dados logados
+      context.commit("UPDATE_USUARIO", {
+        id: "",
+        nome: "",
+        email: "",
+        senha: "",
+        cep: "",
+        rua: "",
+        numero: "",
+        bairro: "",
+        cidade: "",
+        estado: ""
+      });
+      //Passa o LOGIN para FALSE (O USUARIO NÃO ESTA MAIS LOGADO)
+      context.commit("UPDATE_LOGIN", false);
+    },
   },
   modules: {
   }
