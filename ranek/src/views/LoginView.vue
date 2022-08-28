@@ -47,7 +47,11 @@ export default {
           })
         }
     },
-    components: { LoginCriar, ErroNotificacao }
+    components: { LoginCriar, ErroNotificacao },
+    created(){
+      //Altera o TITLE da pagina
+      document.title = "Login"
+    }
 };
 </script>
 

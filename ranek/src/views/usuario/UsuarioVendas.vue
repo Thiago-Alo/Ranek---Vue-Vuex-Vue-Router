@@ -17,6 +17,7 @@
         </div>
       </div>
     </div>
+    <PaginaCarregando v-else></PaginaCarregando>
   </section>
 </template>
 
@@ -53,6 +54,7 @@ export default {
     if (this.login) {
       this.getVendas();
     }
+    document.title = "Usuario/Vendas"
   }
 };
 </script>

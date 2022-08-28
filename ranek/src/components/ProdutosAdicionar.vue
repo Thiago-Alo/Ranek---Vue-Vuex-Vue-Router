@@ -31,10 +31,15 @@ export default {
   },
   methods:{
     //Ao adicionarProduto faz update na API 
-    adicionarProduto() {
+    async adicionarProduto(event) {
+      const button = event.currentTarget;
+      button.value = "Adicionando...";
+      button.setAttribute("disabled", "");
       this.formatarProduto();
-      api.post("/produto", this.produto).then(() => {
-        this.$store.dispatch("getUsuarioProdutos");
+      await api.post("/produto", this.produto).then(() => {
+            this.$store.dispatch("getUsuarioProdutos");
+            button.value = "Adicionar Produto";
+            button.removeAttribute("disabled")
       });
     },
     formatarProduto() {

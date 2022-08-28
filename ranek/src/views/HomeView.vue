@@ -17,7 +17,11 @@ export default {
   // Nome do componente, para ser utilizado em outros componentes
   name: "HomeView",
   // Declaração dos componentes que serão utilizados
-  components: { ProdutosBuscar, ProdutosLista }
+  components: { ProdutosBuscar, ProdutosLista },
+  created(){
+      //Altera o TITLE da pagina
+      document.title = "Ranek"
+    }
 }
 </script>
 <!-- O SCOPED impede que o estilos vazem para outros elementos -->

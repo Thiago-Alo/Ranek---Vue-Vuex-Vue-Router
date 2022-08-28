@@ -37,7 +37,11 @@ export default {
       //Ao deslogar, retorna a pagina de /LOGIN
       this.$router.push("/login");
     }
-  }
+  },
+  created(){
+      //Altera o TITLE da pagina
+      document.title = "Usuário"
+    }
 };
 </script>
 

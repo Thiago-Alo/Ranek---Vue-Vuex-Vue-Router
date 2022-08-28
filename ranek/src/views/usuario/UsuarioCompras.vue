@@ -11,6 +11,7 @@
         </ProdutoItem>
       </div>
     </div>
+    <PaginaCarregando v-else></PaginaCarregando>
   </section>
 </template>
 
@@ -18,11 +19,13 @@
 import ProdutoItem from "@/components/ProdutoItem.vue";
 import { api } from "@/services.js";
 import { mapState } from "vuex";
+import PaginaCarregando from "@/components/PaginaCarregando.vue";
 
 export default {
   components: {
-    ProdutoItem
-  },
+    ProdutoItem,
+    PaginaCarregando
+},
   data() {
     return {
       compras: null
@@ -47,6 +50,7 @@ export default {
     if (this.login) {
       this.getCompras();
     }
+    document.title = "Usuario/Compras"
   }
 };
 </script>

@@ -46,9 +46,12 @@ export default {
     },
     methods: {
         getProduto() {
+          //Este siteTimeout() e para simular a demora de um servidor ao responder
           setTimeout(() => {
             api.get(`/produto/${this.id}`).then(response => {
                 this.produto = response.data;
+                //Altera o TITLE da pagina para o nome do produto
+                document.title = this.produto.nome;
             });
           }, 1000)
         }
