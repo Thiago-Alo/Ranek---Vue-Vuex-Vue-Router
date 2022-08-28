@@ -3,10 +3,13 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import PaginaCarregando from '@/components/PaginaCarregando';
+import ErroNotificacao from '@/components/ErroNotificacao';
 
 Vue.config.productionTip = false
 
+//Registrando componentes globais
 Vue.component("PaginaCarregando", PaginaCarregando);
+Vue.component("ErroNotificacao", ErroNotificacao)
 
 //Filtra se é um Number, Transforma para Number e devolve em MOEDA
 Vue.filter("numeroPreco", valor => {

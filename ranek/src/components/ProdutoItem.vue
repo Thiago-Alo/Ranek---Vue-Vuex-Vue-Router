@@ -29,6 +29,12 @@
       margin-bottom: 40px;
       position: relative;
     }
+    @media screen and (max-width: 500px){
+      .produto {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+    }
     
     .info {
       align-self: end;

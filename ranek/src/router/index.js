@@ -33,6 +33,10 @@ const routes = [
   {
     path: '/usuario',
     component: UsuarioView,
+    //As informações passadas em META: se propagam para os filhos
+    meta: {
+      login: true,
+    },
     children:[
       {
         path: "",
@@ -70,5 +74,21 @@ const router = new VueRouter({
     return window.scrollTo({top: 0, behavior: "smooth"})
   }
 })
+
+//Navigation GUARD
+// router.beforeEach((to, from, next) => {
+//   //Verifica se esta logado
+//   if(to.matched.some(record => record.meta.login)){
+//     //Se não estiver LOGADO envia para o /login
+//     if(!window.localStorage.token){
+//       next("/login");
+//       //Se tiver logado, segue normal para /usuario
+//     }else {
+//       next();
+//     }
+//   }else {
+//     next();
+//   }
+// })
 
 export default router

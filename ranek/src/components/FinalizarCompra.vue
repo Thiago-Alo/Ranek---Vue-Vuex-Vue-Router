@@ -48,6 +48,8 @@ export default {
     },
     //o ASYNC informa que e uma função assincrona
     async criarUsuario(){
+      //Retira o erro da tela ao encontrar outro
+      this.erros = [];
       //try = a TENTE isto, se não consegui, faça o CATCH
       try{
         //Os AWAIT são executado em ordem, 1 so começa apos o outro ser executado
@@ -61,7 +63,8 @@ export default {
         await this.criarTransacao();
         //tratamento de erros
       } catch (error) {
-        console.log(error);
+        //Preenche o array ERROS com a msg
+        this.erros.push(error.response.data.message);
       }
     },
     //AO finalizar a compra executa o criarTransacao() e a criarUsuario()

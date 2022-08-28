@@ -7,6 +7,7 @@
       <label for="senha">Senha</label>
       <input type="password" name="senha" id="senha" v-model="login.senha">
       <button class="btn" @click.prevent="logar">Logar</button>
+      <ErroNotificacao :error="erros"></ErroNotificacao>
     </form>
     <p class="perdeu">
       <a href="/" target="_blank">Perdeu a senha? Clique aqui.</a>
@@ -17,6 +18,7 @@
 
 <script>
 import LoginCriar from '@/components/LoginCriar.vue';
+import ErroNotificacao from '@/components/ErroNotificacao.vue';
 
 export default {
     name: "LoginView",
@@ -24,20 +26,28 @@ export default {
         return {
             login: {
                 email: "",
-                senha: ""
-            }
+                senha: "",
+            },
+            erros: []
         };
     },
     methods: {
         logar() { 
+          //Limpa a msg de erro, ao encontrar outro
+          this.erros = [];
           //o $STORE é o VUEX .DISPACH é metodo do VUEX para enviar uma ACTION
           // ("getUsuario" (é o context), this.login.email (é o payload))
           this.$store.dispatch("getUsuario", this.login.email)
           //Ao logar altere para esta rota "usuario"
           this.$router.push({name: "usuario"})
+          //Catch lida com erros 
+          .catch(error => {
+            //Preenche o array ERROS com a msg
+            this.erros.push(error.response.data.message);
+          })
         }
     },
-    components: { LoginCriar }
+    components: { LoginCriar, ErroNotificacao }
 };
 </script>
 

@@ -119,6 +119,14 @@ export default {
       grid-gap: 30px;
       margin: 30px;
     }
+    @media screen and (max-width: 500px){
+      .produtos {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 10px;
+        margin: 10px;
+      }
+    }
+
     
     .produto {
       box-shadow: 0 4px 8px rgba(30, 60, 90, 0.1);
