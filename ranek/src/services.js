@@ -14,10 +14,15 @@ export const api = {
   get(endpoint) {
     return axiosInstance.get(endpoint);
   },
+  //eNVIA INFORMAÇÃO
   post(endpoint, body) {
     //O BODY tem de ser sempre um objeto, que no caso será o USUARIO 
     //através da função criarUsuario() em store/index.js
     return axiosInstance.post(endpoint, body);
+  },
+  //deleta informação
+  delete(endpoint){
+    return axiosInstance.delete(endpoint)
   }
 };
 //Função usando AXIOS para passar o CEP digitado em UsuarioForm.vue para a API

@@ -20,7 +20,8 @@ export default new Vuex.Store({
       bairro: "",
       cidade: "",
       estado: ""
-    }
+    },
+    usuario_produtos: null,
   },
   getters: {
   },
@@ -35,11 +36,29 @@ export default new Vuex.Store({
       //assim cada V-MODELs passados no UsuarioForm.vue, preenchera a propriedade passada no V-MODEL
       //No Object.assign({}, este objeto vazio seria uma resposta caso não conseguise encontrar o STATE.USUARIO
       state.usuario = Object.assign({}, state.usuario, payload);
-    }
+    },
+    //Faz update da lista de compras so usuario
+    UPDATE_USUARIO_PRODUTOS(state, payload){
+      state.usuario_produtos = payload;
+    },
+    //Adiciona novos itens a lista
+    ADD_USUARIO_PRODUTOS(state, payload){
+      //o UNSHIT() adiciona o item no inicio da lista e o PUSH() no final
+      state.usuario_produtos.unshit(payload);
+    },
   },
   //Action = methods
   // Actions enviar para o mutations e o mutations envia para o state
   actions: {
+    //Add produtos a lista usuario_produtos: null,
+    getUsuarioProdutos(context){
+      //Identifica o usuario através do ID na API
+      api.get(`/produto?usuario_id=${context.state.usuario.id}`)
+      .then(response => {
+        //Retorna um JSON.data, e executa a mutanção UPDATE_USUARIO_PRODUTOS 
+        context.commit("UPDATE_USUARIO_PRODUTOS", response.data)
+      })
+    },
     //Método para fazer login através do usuario
     getUsuario(context, payload){
       //endereço do usuario
